@@ -55,8 +55,8 @@ function init()
     }
     enemy=[e1,e2,e3];
     
-    //player object and movement
     
+    //player object and movement
     player={
         x:0,//W/6,
         y:H/2,//H/6,
@@ -66,21 +66,33 @@ function init()
         moving:"false",
         health:100
     };
+    
     function mousePressed(e)
 	{
 		player.moving=true;
 	}
-
 	canvas.addEventListener('mousedown',mousePressed );
+    
+    function touchPressed(e)
+	{
+		player.moving=true;
+	}
+	canvas.addEventListener('touchstart',touchPressed );
+    
+    
+    
     
     function mouseReleased(e)
 	{
 		player.moving=false;
 	}
-
 	canvas.addEventListener('mouseup',mouseReleased );
     
-    
+    function touchReleased(e)
+	{
+		player.moving=false;
+	}
+	canvas.addEventListener('touchend',touchReleased );
     
     gem={
         x:W-80,
@@ -160,7 +172,6 @@ function update()
     if(player.health<=-20)
         {
             draw();
-            
             game_over=true;
             alert("You Lost!");
             return;
@@ -170,9 +181,7 @@ function update()
             game_over=true;
             alert("You Won!");
             return;
-        }
-    
-    
+        }  
 }
 
 
