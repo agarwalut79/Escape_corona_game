@@ -15,7 +15,13 @@ function load_images()
     //create trophy object
     trophy_img=new Image();
     trophy_img.src="Assets/trophy.png";
+    
+    winner_img=new Image();
+    winner_img.src="Assets/better.jpeg";
 }
+
+
+
 function init()
 {
     canvas=document.getElementById('mycanvas');
@@ -98,6 +104,9 @@ function checkColision(rec1,rec2)
     return false;
 }
 
+
+
+
 function draw()
 {
     pen.clearRect(0,0,W,H);
@@ -113,7 +122,25 @@ function draw()
     pen.drawImage(player_img,player.x,player.y,player.w,player.h);
     
     pen.drawImage(gem_img,gem.x,gem.y,gem.w,gem.h);
+    
+    if(player.health<50)
+    {
+        pen.fillStyle="red";
+        pen.drawImage(trophy_img,18,20,60,60);
+    }
+    else
+    {
+        pen.fillStyle="blue";
+        pen.drawImage(winner_img,18,20,60,60);
+    }
+	//score printing
+	
+	pen.font=="40x Roboto";
+	pen.fillText(player.health ,40,40);
 }
+
+
+
 function update()
 {
     if(player.moving==true)
@@ -130,9 +157,11 @@ function update()
             player.health-=10;
         }
     }
-    if(player.health<=0)
+    if(player.health<=-20)
         {
-             game_over=true;
+            draw();
+            
+            game_over=true;
             alert("You Lost!");
             return;
         }
@@ -145,6 +174,8 @@ function update()
     
     
 }
+
+
 
 function gameloop()
 {
@@ -160,6 +191,9 @@ function gameloop()
     draw();
     update();
 }
+
+
+
 load_images();
 init();
 var f=setInterval(gameloop,100);
